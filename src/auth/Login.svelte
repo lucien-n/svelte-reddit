@@ -11,6 +11,7 @@
             karma: 0,
             uid: user.user.uid,
             displayName: user.user.displayName,
+            created: Date.now()
           });
         }
       });

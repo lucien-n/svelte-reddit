@@ -6,7 +6,7 @@
 
   export let user;
 
-  const query = db.collection("posts").orderBy("upVotes");
+  const query = db.collection("posts").orderBy("votes");
   const posts = collectionData(query, { idField: "id" }).pipe(startWith([]));
 </script>
 
