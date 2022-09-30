@@ -31,7 +31,7 @@
       {:then userInfo}
         <p>
           <strong>{user.displayName}</strong> <br />
-          {formatter.format(userInfo.karma)} karma
+          {formatter.format(userInfo.karmaPost + userInfo.karmaComment)} karma
         </p>
       {/await}
     </div>

@@ -8,10 +8,12 @@
       userDoc.get().then((doc) => {
         if (!doc.exists) {
           userDoc.set({
-            karma: 0,
+            karmaPost: 0,
+            karmaComment: 0,
             uid: user.user.uid,
             displayName: user.user.displayName,
-            created: Date.now()
+            created: Date.now(),
+            subs: ["seddit"]
           });
         }
       });

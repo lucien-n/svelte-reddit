@@ -1,4 +1,5 @@
 <script>
+  import { increment } from "firebase/firestore";
   import { db } from "../firebase";
 
   export let user;
@@ -7,17 +8,20 @@
   let title;
 
   async function submitPost() {
-    const userPostsDoc = db.collection("posts");
-    const newPost = await userPostsDoc.add({
+    const post = await db.collection("posts").add({
       title: title,
       content: content,
-      created: Date.now(),
-      upVotes: 1,
-      downVotes: 0,
-      sub: redit,
+      votes: 1,
+      sub: "seddit",
       uid: user.uid,
+      created: Date.now(),
     });
-    console.log(newPost.id, "=>", newPost.title);
+
+    // Adding karma to the user
+    db.collection("users").doc(user.uid).update({ karma: increment(1) })
+
+    // Registering vote on the user
+    db.collection("users").doc(user.uid).collection("posts").doc(post.id).set({ vote: 1 })
   }
 </script>
 
@@ -30,12 +34,7 @@
       <div class="field">
         <label for="title" class="label">Title</label>
         <div class="control">
-          <input
-            bind:value={title}
-            type="text"
-            class="input"
-            id="title"
-          />
+          <input bind:value={title} type="text" class="input" id="title" />
         </div>
       </div>
       <div class="field">

@@ -1,13 +1,31 @@
 <script>
+  import { collectionData } from "rxfire/firestore";
+  import { startWith } from "rxjs";
+  import { navigate } from "svelte-navigator";
   import { auth, db } from "../firebase";
+  import PostPreview from "../post/PostPreview.svelte";
 
   export let user;
   export let target_uid;
+
+  const query = db
+    .collection("posts")
+    .where("uid", "==", user.uid)
+    .orderBy("created");
+
+  const user_posts = collectionData(query, { idField: "id" }).pipe(
+    startWith([])
+  );
 
   async function getTargetData() {
     const doc = await db.collection("users").doc(target_uid).get();
     const snapshot = doc.data();
     return snapshot;
+  }
+
+  function formatDate(date_epoch) {
+    let date = new Date(date_epoch);
+    return date.toDateString();
   }
 
   let target = getTargetData();
@@ -27,6 +45,7 @@
               class="button is-danger is-outlined"
               on:click={() => {
                 auth.signOut();
+                navigate("/");
               }}>Logout</button
             >
           {/if}
@@ -34,8 +53,15 @@
       </div>
 
       <div class="card-content">
-        <p>Joined the: { target.created }</p>
+        <p>Joined: {formatDate(target.created)}</p>
+        <p>
+          Total Karma: {target.karmaPost + target.karmaComment} ({target.karmaPost}
+          post, {target.karmaComment} comment)
+        </p>
       </div>
     {/await}
   </div>
+  {#each $user_posts as post}
+    <PostPreview {post} {user} />
+  {/each}
 </div>
