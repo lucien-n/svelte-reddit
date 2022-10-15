@@ -35,7 +35,7 @@
         </Route>
 
         <Route path="r/:sub" let:params>
-          <Home params={params} user={$user} />
+          <Home sub={params.sub} user={$user} />
         </Route>
       </div>
     </div>

@@ -4,25 +4,27 @@
   import { collectionData } from "rxfire/firestore";
   import { startWith } from "rxjs/operators";
 
-  export let params;
+  export let sub;
   export let user;
 
-  const sub = params.sub;
-
-  console.log(sub);
-
   const query = db.collection("posts").where("sub", "==", sub).orderBy("votes");
-  const posts = collectionData(query, { idField: "id" }).pipe(startWith([]));
+  const posts_promise = () => {
+    return collectionData(query, { idField: "id" }).pipe(startWith([]));
+  };
 </script>
 
 <div class="container">
   <div class="tile is-ancestor">
     <div class="tile is-9 is-vertical is-parent">
-      {#each $posts as post}
-        <div class="tile is-child">
-          <PostPreview {post} {user} />
-        </div>
-      {/each}
+      {#await posts_promise}
+        <h1>Fetching posts</h1>
+      {:then posts}
+        {#each posts as post}
+          <div class="tile is-child">
+            <PostPreview {post} {user} />
+          </div>
+        {/each}
+      {/await}
     </div>
     <div class="tile is-parent">
       <div class="tile is-child box">
