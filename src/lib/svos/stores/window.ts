@@ -8,6 +8,7 @@ export type WindowStore = Store<TWindow> & {
 	close: () => void;
 	toggleFullscreen: () => void;
 	startDragging: (pos: Vector) => void;
+	stopDragging: (pos: Vector) => void;
 	drag: (pos: Vector) => void;
 };
 
@@ -49,6 +50,12 @@ export const createWindowStore = (win: TWindow): WindowStore => {
 		setField('isDragging', true);
 	};
 
+	const stopDragging = (pos: Vector) => {
+		lastPosition = pos;
+		setField('isDragging', false);
+		setField('pos', lastPosition);
+	};
+
 	const drag = (pos: Vector) =>
 		getField('isDragging') && setField('pos', [pos[0] - dragOffset[0], pos[1] - dragOffset[1]]);
 
@@ -58,7 +65,8 @@ export const createWindowStore = (win: TWindow): WindowStore => {
 		update,
 		close,
 		toggleFullscreen,
-		startDragging: startDragging,
+		startDragging,
+		stopDragging,
 		drag
 	};
 };

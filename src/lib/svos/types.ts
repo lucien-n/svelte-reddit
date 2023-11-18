@@ -10,7 +10,7 @@ export type TWindow = {
 	isFullscreen: boolean;
 	isMinimized: boolean;
 	isDragging: boolean;
-};
+} & any;
 
 export type TDesktop = {
 	windows: WindowStore[];

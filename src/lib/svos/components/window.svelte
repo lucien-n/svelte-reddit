@@ -24,7 +24,7 @@
 		});
 	});
 
-	const handleMouseUp = () => ($win.isDragging = false);
+	const handleMouseUp = ({ clientX, clientY }: MouseEvent) => win.stopDragging([clientX, clientY]);
 	const handleMouseMove = ({ clientX, clientY }: MouseEvent) => win.drag([clientX, clientY]);
 </script>
 
