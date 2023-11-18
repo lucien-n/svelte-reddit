@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { cn } from '$lib/utils';
 	import { Maximize2, Minimize2, Minus, X } from 'lucide-svelte';
 	import type { WindowStore } from '../stores/window';
 
@@ -16,7 +17,10 @@
 <section
 	bind:this={node}
 	on:mousedown={handleMouseDown}
-	class="border-b h-8 flex gap-1 items-center bg-foreground/10 rounded-t"
+	class={cn(
+		'border-b h-8 flex gap-1 items-center rounded-t bg-foreground/10',
+		!$win.isFocused && 'text-foreground/60'
+	)}
 >
 	<div class="flex gap-1 m-1">
 		<button
