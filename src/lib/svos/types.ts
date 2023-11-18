@@ -8,6 +8,7 @@ export type TWindow = {
 	size: Vector;
 	isFullscreen: boolean;
 	isMinimized: boolean;
+	title: string;
 };
 
 export type TDesktop = {

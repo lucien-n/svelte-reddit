@@ -4,23 +4,24 @@ import { writable } from 'svelte/store';
 import type { TDesktop, TWindow } from '../types';
 import { createWindowStore, type WindowStore } from './window';
 
-export type WindowInitSettings = Pick<TWindow, 'pos' | 'size'>;
+export type WindowInitSettings = Pick<TWindow, 'pos' | 'size' | 'title'>;
 
 export type DesktopStore = Store<TDesktop> & {
 	createWindow: (settins: WindowInitSettings) => WindowStore;
 };
 
-export const createDesktopStore = (): DesktopStore => {
+const createDesktopStore = (): DesktopStore => {
 	const { subscribe, set, update } = writable<TDesktop>({
 		windows: []
 	});
 
 	const createWindow = (settings: WindowInitSettings) => {
-		const { pos, size } = settings;
+		const { pos, size, title } = settings;
 
 		const win = createWindowStore({
 			id: nanoid(),
 			pos,
+			title,
 			size,
 			isFullscreen: false,
 			isMinimized: false
@@ -42,3 +43,5 @@ export const createDesktopStore = (): DesktopStore => {
 		createWindow
 	};
 };
+
+export const desktop = createDesktopStore();

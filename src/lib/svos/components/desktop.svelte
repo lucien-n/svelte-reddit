@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { createDesktopStore } from '../stores/deskop';
+	import { desktop } from '../stores/deskop';
 	import Window from './window.svelte';
 
-	export const desktop = createDesktopStore();
 	desktop.createWindow({
 		pos: [10, 10],
-		size: [640, 360]
+		size: [640, 360],
+		title: 'Window №1'
 	});
 </script>
 

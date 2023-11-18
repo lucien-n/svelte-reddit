@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import type { WindowStore } from '../stores/window';
 	import type { Vector } from '../types';
+	import Titlebar from './titlebar.svelte';
 
 	export let win: WindowStore;
 	let node: HTMLElement;
@@ -24,6 +25,7 @@
 	});
 </script>
 
-<article bind:this={node} class="border">
+<article id={$win.id} bind:this={node} class="border rounded-md">
+	<Titlebar {win} />
 	<slot />
 </article>
