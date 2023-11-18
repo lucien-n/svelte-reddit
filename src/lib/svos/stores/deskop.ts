@@ -1,5 +1,6 @@
 import type { Store } from '$lib/types';
 import { nanoid } from 'nanoid';
+import { filterOutWindow } from '../helper';
 import type { TDesktop, TWindow } from '../types';
 import { writable } from './svos-store';
 import { createWindowStore, type WindowStore } from './window';
@@ -53,20 +54,11 @@ const createDesktopStore = (): DesktopStore => {
 	};
 
 	const closeWindow = (windowId: string) => {
-		focusWindow(windowId);
-		update((dt) => {
-			const window = dt.windows.find((win) => {
-				let id;
-				win.subscribe((w) => (id = w.id));
-				return id !== windowId;
-			});
-			if (!window) return dt;
-
-			return {
-				...dt,
-				windows: dt.windows.slice(dt.windows.indexOf(window))
-			};
-		});
+		setField(
+			'windows',
+			getField('windows').filter((win) => filterOutWindow(windowId, win))
+		);
+		setField('focusedWindowId', getField('windows')[0].getField('id') || '');
 	};
 
 	const focusWindow = (windowId: string) => {
