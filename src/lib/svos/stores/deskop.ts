@@ -54,10 +54,8 @@ const createDesktopStore = (): DesktopStore => {
 	};
 
 	const closeWindow = (windowId: string) => {
-		setField(
-			'windows',
-			getField('windows').filter((win) => filterOutWindow(windowId, win))
-		);
+		const filteredWindows = getField('windows').filter((win) => filterOutWindow(windowId, win));
+		setField('windows', filteredWindows);
 		setField('focusedWindowId', getField('windows')[0].getField('id') || '');
 	};
 
