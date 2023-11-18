@@ -31,12 +31,14 @@
 
 <svelte:window on:mousemove={handleMouseMove} on:mouseup={handleMouseUp} />
 
+<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 <article
 	id={$win.id}
 	bind:this={node}
 	class={cn('absolute border rounded-md visible bg-background', $win.isFocused ? 'z-10' : 'z-0')}
 	class:hidden={$win.isMinimized}
+	on:mousedown={() => win.focus()}
 >
-	<Titlebar {win}  />
+	<Titlebar {win} />
 	<slot />
 </article>
