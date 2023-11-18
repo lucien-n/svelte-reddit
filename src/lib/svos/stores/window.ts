@@ -45,7 +45,11 @@ export const createWindowStore = (win: TWindow): WindowStore => {
 		});
 	};
 
-	const startDragging = (pos: Vector) => (dragOffset = pos) && setField('isDragging', true);
+	const startDragging = (pos: Vector) => {
+		setField('isFullscreen', false);
+		dragOffset = pos;
+		setField('isDragging', true);
+	};
 
 	const stopDragging = () => (lastPosition = getField('pos')) && setField('isDragging', false);
 

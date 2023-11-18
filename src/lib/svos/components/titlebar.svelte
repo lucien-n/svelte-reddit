@@ -6,8 +6,10 @@
 
 	let node: HTMLElement;
 
+	let isHoveringButton = false;
+
 	const handleMouseDown = ({ clientX, clientY }: MouseEvent) =>
-		win.startDragging([clientX, clientY]);
+		!isHoveringButton && win.startDragging([clientX, clientY]);
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
@@ -18,12 +20,16 @@
 >
 	<div class="flex gap-1 m-1">
 		<button
+			on:mouseenter={() => (isHoveringButton = true)}
+			on:mouseleave={() => (isHoveringButton = false)}
 			on:click={() => win.close()}
 			class="rounded-full bg-red-600 p-[2px] aspect-square w-5 flex items-center justify-center"
 		>
 			<X size="16px" strokeWidth="3px" />
 		</button>
 		<button
+			on:mouseenter={() => (isHoveringButton = true)}
+			on:mouseleave={() => (isHoveringButton = false)}
 			on:click={() => {
 				return;
 			}}
@@ -32,6 +38,8 @@
 			<Minus size="16px" strokeWidth="3px" />
 		</button>
 		<button
+			on:mouseenter={() => (isHoveringButton = true)}
+			on:mouseleave={() => (isHoveringButton = false)}
 			on:click={() => win.toggleFullscreen()}
 			class="rounded-full bg-green-600 p-[2px] aspect-square w-5 flex items-center justify-center"
 		>
