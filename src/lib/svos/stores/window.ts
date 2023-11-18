@@ -33,8 +33,8 @@ export const createWindowStore = (win: TWindow): WindowStore => {
 		setField('isFullscreen', !isFullscreen);
 
 		if (win.isFullscreen) {
-			lastPosition = win.pos;
-			lastSize = win.size;
+			lastPosition = getField('pos');
+			lastSize = getField('size');
 			setField('size', vector.substract([window.innerWidth, window.innerHeight], [1, 1]));
 			setField('pos', [0, 0]);
 		} else {
