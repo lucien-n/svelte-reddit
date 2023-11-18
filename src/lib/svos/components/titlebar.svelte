@@ -31,11 +31,11 @@
 				win.close();
 				isHoveringButton[0] = false;
 			}}
-			class="rounded-full bg-red-600 p-[2px] aspect-square w-5 flex items-center justify-center"
+			class="rounded-full bg-red-600 p-[2px] aspect-square w-4 flex items-center justify-center"
 		>
 			{#if isHoveringButton[0]}
 				<div transition:fade={{ duration: 100 }}>
-					<X size="16px" strokeWidth="3px" />
+					<X size="12px" strokeWidth="3px" />
 				</div>
 			{/if}
 		</button>
@@ -46,11 +46,11 @@
 				win.hide();
 				isHoveringButton[1] = false;
 			}}
-			class="rounded-full bg-orange-600 p-[2px] aspect-square w-5 flex items-center justify-center"
+			class="rounded-full bg-orange-600 p-[2px] aspect-square w-4 flex items-center justify-center"
 		>
 			{#if isHoveringButton[1]}
 				<div transition:fade={{ duration: 100 }}>
-					<Minus size="16px" strokeWidth="3px" />
+					<Minus size="12px" strokeWidth="3px" />
 				</div>
 			{/if}
 		</button>
@@ -61,17 +61,17 @@
 				win.toggleFullscreen();
 				isHoveringButton[2] = false;
 			}}
-			class="rounded-full bg-green-600 p-[2px] aspect-square w-5 flex items-center justify-center"
+			class="rounded-full bg-green-600 p-[2px] aspect-square w-4 flex items-center justify-center"
 		>
 			{#if $win.isFullscreen}
 				{#if isHoveringButton[2]}
 					<div transition:fade={{ duration: 100 }}>
-						<Minimize2 size="16px" strokeWidth="3px" />
+						<Minimize2 size="12px" strokeWidth="3px" />
 					</div>
 				{/if}
 			{:else if isHoveringButton[2]}
 				<div transition:fade={{ duration: 100 }}>
-					<Maximize2 size="16px" strokeWidth="3px" />
+					<Maximize2 size="12px" strokeWidth="3px" />
 				</div>
 			{/if}
 		</button>
