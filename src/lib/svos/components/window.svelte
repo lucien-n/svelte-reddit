@@ -25,7 +25,7 @@
 	});
 </script>
 
-<article id={$win.id} bind:this={node} class="border rounded-md">
+<article id={$win.id} bind:this={node} class="absolute border rounded-md">
 	<Titlebar {win} />
 	<slot />
 </article>
