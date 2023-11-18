@@ -1,8 +1,8 @@
 import type { Store } from '$lib/types';
-import { writable } from 'svelte/store';
 import { filterOutWindow } from '../helper';
 import type { TWindow, Vector } from '../types';
 import { desktop } from './deskop';
+import { writable } from './svos-store';
 
 export type WindowStore = Store<TWindow> & {
 	close: () => void;
@@ -12,23 +12,11 @@ export type WindowStore = Store<TWindow> & {
 };
 
 export const createWindowStore = (win: TWindow): WindowStore => {
-	const { subscribe, set, update } = writable<TWindow>(win);
+	const { subscribe, set, update, setField, getField } = writable<TWindow>(win);
 
 	let lastSize: Vector = win.size;
 	let lastPosition: Vector = win.pos;
 	let dragOffset: Vector = [0, 0];
-
-	const updateField = <K extends keyof TWindow>(field: K, value: TWindow[K]) =>
-		update((win) => {
-			win[field] = value;
-			return win;
-		});
-
-	const getField = <K extends keyof TWindow>(field: K): TWindow[K] => {
-		let value: TWindow[K] | null = null;
-		subscribe((win) => (value = win[field]));
-		return value as any;
-	};
 
 	const close = () => {
 		desktop.update(({ windows }) => {
@@ -58,11 +46,11 @@ export const createWindowStore = (win: TWindow): WindowStore => {
 
 	const startDragging = (pos: Vector) => {
 		dragOffset = pos;
-		updateField('isDragging', true);
+		setField('isDragging', true);
 	};
 
 	const drag = (pos: Vector) =>
-		getField('isDragging') && updateField('pos', [pos[0] - dragOffset[0], pos[1] - dragOffset[1]]);
+		getField('isDragging') && setField('pos', [pos[0] - dragOffset[0], pos[1] - dragOffset[1]]);
 
 	return {
 		subscribe,
