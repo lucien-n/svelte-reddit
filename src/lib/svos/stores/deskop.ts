@@ -53,8 +53,18 @@ const createDesktopStore = (): DesktopStore => {
 		return win;
 	};
 
-	const closeWindow = (windowId: string) =>
-		setField('windows', [...getField('windows').filter((win) => win.getField('id') !== windowId)]);
+	const closeWindow = (windowId: string) => {
+		update((dt) => {
+			return {
+				...dt,
+				windows: dt.windows.filter((win) => {
+					let id;
+					win.subscribe((w) => (id = w.id));
+					return id !== windowId;
+				})
+			};
+		});
+	};
 
 	const focusWindow = (windowId: string) => setField('focusedWindowId', windowId);
 
