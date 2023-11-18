@@ -1,0 +1,29 @@
+<script lang="ts">
+	import { onMount } from 'svelte';
+	import type { WindowStore } from '../stores/window';
+	import type { Vector } from '../types';
+
+	export let win: WindowStore;
+	let node: HTMLElement;
+
+	const setPosition = (pos: Vector) => {
+		node.style.left = `${pos[0]}px`;
+		node.style.top = `${pos[1]}px`;
+	};
+
+	const setSize = (size: Vector) => {
+		node.style.width = `${size[0]}px`;
+		node.style.height = `${size[1]}px`;
+	};
+
+	onMount(() => {
+		win.subscribe(({ pos, size }) => {
+			setPosition(pos);
+			setSize(size);
+		});
+	});
+</script>
+
+<article bind:this={node} class="border">
+	<slot />
+</article>

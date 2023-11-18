@@ -1,4 +1,4 @@
-import type { Store } from '$lib/types';
+import type { WindowStore } from './stores/window';
 
 export type Vector = [number, number];
 
@@ -10,10 +10,6 @@ export type TWindow = {
 	isMinimized: boolean;
 };
 
-export type DesktopStore = Store<TWindow[]> & {
-	add: (window: TWindow) => void;
-	close: (windowId: string) => boolean;
-	open: (windowId: string) => void;
-	minimize: (windowId: string) => void;
-	toggleFullscreen: (windowId: string) => void;
+export type TDesktop = {
+	windows: WindowStore[];
 };
