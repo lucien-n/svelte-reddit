@@ -33,7 +33,7 @@
 <article
 	id={$win.id}
 	bind:this={node}
-	class="absolute border rounded-md visible"
+	class="absolute border rounded-md visible bg-background"
 	class:hidden={$win.isMinimized}
 >
 	<Titlebar {win} />
