@@ -60,6 +60,7 @@ export const createWindowStore = (win: TWindow): WindowStore => {
 	const focus = () => {
 		desktop.focusWindow(getField('id'));
 		setField('isFocused', true);
+		show();
 	};
 
 	return {
