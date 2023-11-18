@@ -11,7 +11,7 @@ export type TWindow = {
 	isMinimized: boolean;
 	isDragging: boolean;
 	isFocused: boolean;
-} & any;
+};
 
 export type TDesktop = {
 	windows: WindowStore[];
