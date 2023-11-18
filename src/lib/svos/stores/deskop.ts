@@ -1,7 +1,7 @@
 import type { Store } from '$lib/types';
 import { nanoid } from 'nanoid';
-import { writable } from 'svelte/store';
 import type { TDesktop, TWindow } from '../types';
+import { writable } from './svos-store';
 import { createWindowStore, type WindowStore } from './window';
 
 export type WindowInitSettings = Pick<TWindow, 'pos' | 'size' | 'title'>;
@@ -12,7 +12,7 @@ export type DesktopStore = Store<TDesktop> & {
 };
 
 const createDesktopStore = (): DesktopStore => {
-	const { subscribe, set, update } = writable<TDesktop>({
+	const { subscribe, set, update, getField, setField } = writable<TDesktop>({
 		windows: []
 	});
 
@@ -56,6 +56,8 @@ const createDesktopStore = (): DesktopStore => {
 		subscribe,
 		set,
 		update,
+		getField,
+		setField,
 		createWindow,
 		getWindow
 	};
