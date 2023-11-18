@@ -14,4 +14,5 @@ export type TWindow = {
 
 export type TDesktop = {
 	windows: WindowStore[];
+	focusedWindowId: string;
 };

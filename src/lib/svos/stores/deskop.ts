@@ -9,11 +9,14 @@ export type WindowInitSettings = Pick<TWindow, 'pos' | 'size' | 'title'>;
 export type DesktopStore = Store<TDesktop> & {
 	createWindow: (settings: WindowInitSettings) => WindowStore;
 	getWindow: (windowId: string) => WindowStore | undefined;
+	closeWindow: (windowId: string) => void;
+	focusWindow: (windowId: string) => void;
 };
 
 const createDesktopStore = (): DesktopStore => {
 	const { subscribe, set, update, getField, setField } = writable<TDesktop>({
-		windows: []
+		windows: [],
+		focusedWindowId: ''
 	});
 
 	const createWindow = (settings: WindowInitSettings) => {
@@ -29,10 +32,8 @@ const createDesktopStore = (): DesktopStore => {
 			isDragging: false
 		} satisfies TWindow);
 
-		update(({ windows }) => {
-			return {
-				windows: [...windows, win]
-			};
+		update((desktop) => {
+			return { ...desktop, windows: [...desktop.windows, win] };
 		});
 
 		return win;
@@ -52,6 +53,11 @@ const createDesktopStore = (): DesktopStore => {
 		return win;
 	};
 
+	const closeWindow = (windowId: string) =>
+		setField('windows', [...getField('windows').filter((win) => win.getField('id') !== windowId)]);
+
+	const focusWindow = (windowId: string) => setField('focusedWindowId', windowId);
+
 	return {
 		subscribe,
 		set,
@@ -59,7 +65,9 @@ const createDesktopStore = (): DesktopStore => {
 		getField,
 		setField,
 		createWindow,
-		getWindow
+		getWindow,
+		closeWindow,
+		focusWindow
 	};
 };
 
