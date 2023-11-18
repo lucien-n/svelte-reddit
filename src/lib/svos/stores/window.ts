@@ -1,5 +1,5 @@
 import type { Store } from '$lib/types';
-import { filterOutWindow } from '../helper';
+import { filterOutWindow, vector } from '../helper';
 import type { TWindow, Vector } from '../types';
 import { desktop } from './deskop';
 import { writable } from './svos-store';
@@ -8,7 +8,7 @@ export type WindowStore = Store<TWindow> & {
 	close: () => void;
 	toggleFullscreen: () => void;
 	startDragging: (pos: Vector) => void;
-	stopDragging: (pos: Vector) => void;
+	stopDragging: () => void;
 	drag: (pos: Vector) => void;
 };
 
@@ -45,19 +45,13 @@ export const createWindowStore = (win: TWindow): WindowStore => {
 		});
 	};
 
-	const startDragging = (pos: Vector) => {
-		dragOffset = pos;
-		setField('isDragging', true);
-	};
+	const startDragging = (pos: Vector) => (dragOffset = pos) && setField('isDragging', true);
 
-	const stopDragging = (pos: Vector) => {
-		lastPosition = pos;
-		setField('isDragging', false);
-		setField('pos', lastPosition);
-	};
+	const stopDragging = () => (lastPosition = getField('pos')) && setField('isDragging', false);
 
 	const drag = (pos: Vector) =>
-		getField('isDragging') && setField('pos', [pos[0] - dragOffset[0], pos[1] - dragOffset[1]]);
+		getField('isDragging') &&
+		setField('pos', vector.add(lastPosition, vector.substract(pos, dragOffset)));
 
 	return {
 		subscribe,

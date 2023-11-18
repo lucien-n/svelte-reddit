@@ -8,6 +8,6 @@ export const filterOutWindow = (windowId: string, windowStore: WindowStore) => {
 };
 
 export const vector = {
-	substract: (a: Vector, b: Vector) => [a[0] - b[0], a[1] - b[1]],
-	add: (a: Vector, b: Vector) => [a[0] + b[0], a[1] + b[1]]
+	substract: (a: Vector, b: Vector): Vector => [a[0] - b[0], a[1] - b[1]],
+	add: (a: Vector, b: Vector): Vector => [a[0] + b[0], a[1] + b[1]]
 };
