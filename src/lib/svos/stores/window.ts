@@ -28,21 +28,19 @@ export const createWindowStore = (win: TWindow): WindowStore => {
 	};
 
 	const toggleFullscreen = () => {
-		update((win) => {
-			win.isFullscreen = !win.isFullscreen;
+		const isFullscreen = getField('isFullscreen');
 
-			if (win.isFullscreen) {
-				lastPosition = win.pos;
-				lastSize = win.size;
-				win.size = [window.innerWidth - 1, window.innerHeight - 1];
-				win.pos = [0, 0];
-			} else {
-				win.pos = lastPosition;
-				win.size = lastSize;
-			}
+		setField('isFullscreen', !isFullscreen);
 
-			return win;
-		});
+		if (win.isFullscreen) {
+			lastPosition = win.pos;
+			lastSize = win.size;
+			setField('size', vector.substract([window.innerWidth, window.innerHeight], [1, 1]));
+			setField('pos', [0, 0]);
+		} else {
+			setField('size', lastSize);
+			setField('pos', lastPosition);
+		}
 	};
 
 	const startDragging = (pos: Vector) => {
