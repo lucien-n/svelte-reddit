@@ -49,7 +49,8 @@ export const createWindowStore = (win: TWindow): WindowStore => {
 		setField('isDragging', true);
 	};
 
-	const stopDragging = () => (lastPosition = getField('pos')) && setField('isDragging', false);
+	const stopDragging = () =>
+		getField('isDragging') && (lastPosition = getField('pos')) && setField('isDragging', false);
 
 	const drag = (pos: Vector) =>
 		getField('isDragging') &&
