@@ -30,7 +30,12 @@
 
 <svelte:window on:mousemove={handleMouseMove} on:mouseup={handleMouseUp} />
 
-<article id={$win.id} bind:this={node} class="absolute border rounded-md">
+<article
+	id={$win.id}
+	bind:this={node}
+	class="absolute border rounded-md visible"
+	class:hidden={$win.isMinimized}
+>
 	<Titlebar {win} />
 	<slot />
 </article>

@@ -34,7 +34,7 @@
 			on:mouseenter={() => (isHoveringButton = true)}
 			on:mouseleave={() => (isHoveringButton = false)}
 			on:click={() => {
-				return;
+				win.hide();
 				isHoveringButton = false;
 			}}
 			class="rounded-full bg-orange-600 p-[2px] aspect-square w-5 flex items-center justify-center"

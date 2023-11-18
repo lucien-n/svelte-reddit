@@ -10,6 +10,8 @@ export type WindowStore = Store<TWindow> & {
 	startDragging: (pos: Vector) => void;
 	stopDragging: () => void;
 	drag: (pos: Vector) => void;
+	show: () => void;
+	hide: () => void;
 };
 
 export const createWindowStore = (win: TWindow): WindowStore => {
@@ -56,14 +58,21 @@ export const createWindowStore = (win: TWindow): WindowStore => {
 		getField('isDragging') &&
 		setField('pos', vector.add(lastPosition, vector.substract(pos, dragOffset)));
 
+	const show = () => setField('isMinimized', false);
+	const hide = () => setField('isMinimized', true);
+
 	return {
 		subscribe,
 		set,
 		update,
+		getField,
+		setField,
 		close,
 		toggleFullscreen,
 		startDragging,
 		stopDragging,
-		drag
+		drag,
+		show,
+		hide
 	};
 };
