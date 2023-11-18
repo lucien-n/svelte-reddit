@@ -3,7 +3,7 @@
 	import TaskbarSlot from './taskbar-slot.svelte';
 </script>
 
-<section id="taskbar" class="flex mx-auto mt-auto m-3 z-20 bg-background">
+<section id="taskbar" class="flex mt-auto border-t z-20 h-16 w-full bg-background">
 	{#each $desktop.windows as win}
 		<TaskbarSlot {win} />
 	{/each}
