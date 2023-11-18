@@ -1,5 +1,6 @@
 import type { Store } from '$lib/types';
 import { writable } from 'svelte/store';
+import { filterOutWindow } from '../helper';
 import type { TWindow } from '../types';
 import { desktop } from './deskop';
 
@@ -13,11 +14,7 @@ export const createWindowStore = (win: TWindow): WindowStore => {
 	const close = () => {
 		desktop.update(({ windows }) => {
 			return {
-				windows: windows.filter((desktopWin) => {
-					let desktopWinId;
-					desktopWin.subscribe(({ id }) => (desktopWinId = id));
-					return win.id !== desktopWinId;
-				})
+				windows: windows.filter((desktopWin) => filterOutWindow(win.id, desktopWin))
 			};
 		});
 	};

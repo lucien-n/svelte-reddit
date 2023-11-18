@@ -7,7 +7,8 @@ import { createWindowStore, type WindowStore } from './window';
 export type WindowInitSettings = Pick<TWindow, 'pos' | 'size' | 'title'>;
 
 export type DesktopStore = Store<TDesktop> & {
-	createWindow: (settins: WindowInitSettings) => WindowStore;
+	createWindow: (settings: WindowInitSettings) => WindowStore;
+	getWindow: (windowId: string) => WindowStore | undefined;
 };
 
 const createDesktopStore = (): DesktopStore => {
@@ -36,11 +37,26 @@ const createDesktopStore = (): DesktopStore => {
 		return win;
 	};
 
+	const getWindow = (windowId: string): WindowStore | undefined => {
+		let win;
+
+		subscribe(({ windows }) => {
+			win = windows.find((desktopWindow) => {
+				let isSelf;
+				desktopWindow.subscribe(({ id }) => (isSelf = id === windowId));
+				return isSelf;
+			});
+		});
+
+		return win;
+	};
+
 	return {
 		subscribe,
 		set,
 		update,
-		createWindow
+		createWindow,
+		getWindow
 	};
 };
 
