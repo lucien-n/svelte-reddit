@@ -4,7 +4,9 @@ import type { TDesktop, TWindow } from '../types';
 import { writable } from './svos-store';
 import { createWindowStore, type WindowStore } from './window';
 
-export type WindowInitSettings = Pick<TWindow, 'pos' | 'size' | 'title'>;
+export type WindowInitSettings = Pick<TWindow, 'pos' | 'size' | 'title' | 'icon'> & {
+	icon?: string | undefined;
+};
 
 export type DesktopStore = Store<TDesktop> & {
 	createWindow: (settings: WindowInitSettings) => WindowStore;
@@ -20,13 +22,10 @@ const createDesktopStore = (): DesktopStore => {
 	});
 
 	const createWindow = (settings: WindowInitSettings) => {
-		const { pos, size, title } = settings;
-
 		const win = createWindowStore({
+			...settings,
 			id: nanoid(),
-			pos,
-			title,
-			size,
+			isFocused: false,
 			isFullscreen: false,
 			isMinimized: false,
 			isDragging: false

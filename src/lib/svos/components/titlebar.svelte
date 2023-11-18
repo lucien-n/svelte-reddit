@@ -19,7 +19,7 @@
 	bind:this={node}
 	on:mousedown={handleMouseDown}
 	class={cn(
-		'border-b h-8 flex gap-1 items-center rounded-t bg-foreground/10',
+		'border-b h-8 flex gap-1 px-1 items-center rounded-t bg-foreground/10',
 		!$win.isFocused && 'text-foreground/60'
 	)}
 >

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { cn } from '$lib/utils';
+	import { Bird } from 'lucide-svelte';
 	import type { WindowStore } from '../stores/window';
 
 	export let win: WindowStore;
@@ -13,6 +14,14 @@
 		$win.isFocused && 'bg-foreground/30'
 	)}
 >
+	<div class="p-3">
+		{#if $win.icon}
+			<img src={$win.icon} alt={$win.title} />
+		{:else}
+			<Bird size="100%" />
+		{/if}
+	</div>
+	<!-- Bottom bar -->
 	<div class="absolute bottom-0 flex w-full">
 		<div
 			class={cn(

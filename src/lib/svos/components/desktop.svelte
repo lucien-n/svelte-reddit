@@ -6,7 +6,8 @@
 	desktop.createWindow({
 		pos: [10, 10],
 		size: [640, 360],
-		title: 'Window №1'
+		title: 'Window №1',
+		icon: 'https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png'
 	});
 	desktop.createWindow({
 		pos: [800, 40],

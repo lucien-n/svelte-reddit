@@ -7,6 +7,7 @@ export type TWindow = {
 	pos: Vector;
 	size: Vector;
 	title: string;
+	icon?: string;
 	isFullscreen: boolean;
 	isMinimized: boolean;
 	isDragging: boolean;
