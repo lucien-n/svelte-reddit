@@ -1,13 +1,12 @@
 <script lang="ts">
-	import { Maximize2, Minus, Shrink, X } from 'lucide-svelte';
-	import { createEventDispatcher } from 'svelte';
+	import { Maximize2, Minimize2, Minus, X } from 'lucide-svelte';
 	import type { WindowStore } from '../stores/window';
 
 	export let win: WindowStore;
 
-	const dispatch = createEventDispatcher();
-
 	let node: HTMLElement;
+
+	win.subscribe(console.log);
 </script>
 
 <section bind:this={node} class="border-b h-8 flex gap-1 items-center bg-foreground/10 rounded-t">
@@ -27,15 +26,13 @@
 			<Minus size="16px" strokeWidth="3px" />
 		</button>
 		<button
-			on:click={() => {
-				return;
-			}}
+			on:click={() => win.toggleFullscreen()}
 			class="rounded-full bg-green-600 p-[2px] aspect-square w-5 flex items-center justify-center"
 		>
 			{#if $win.isFullscreen}
-				<Shrink size="16px" strokeWidth="3px" />
+				<Minimize2 size="16px" strokeWidth="3px" />
 			{:else}
-				<Maximize2 size="14px" strokeWidth="3px" />
+				<Maximize2 size="16px" strokeWidth="3px" />
 			{/if}
 		</button>
 	</div>
