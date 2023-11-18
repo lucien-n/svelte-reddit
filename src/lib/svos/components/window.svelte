@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { cn } from '$lib/utils';
 	import { onMount } from 'svelte';
-	import { desktop } from '../stores/deskop';
 	import type { WindowStore } from '../stores/window';
 	import type { Vector } from '../types';
 	import Titlebar from './titlebar.svelte';
@@ -35,9 +34,9 @@
 <article
 	id={$win.id}
 	bind:this={node}
-	class={cn("absolute border rounded-md visible bg-background", $desktop.focusedWindowId === $win.id ? "z-10" : "z-0")}
+	class={cn('absolute border rounded-md visible bg-background', $win.isFocused ? 'z-10' : 'z-0')}
 	class:hidden={$win.isMinimized}
 >
-	<Titlebar {win} />
+	<Titlebar {win}  />
 	<slot />
 </article>

@@ -57,7 +57,10 @@ export const createWindowStore = (win: TWindow): WindowStore => {
 	const show = () => setField('isMinimized', false);
 	const hide = () => setField('isMinimized', true);
 
-	const focus = () => desktop.focusWindow(getField('id'));
+	const focus = () => {
+		desktop.focusWindow(getField('id'));
+		setField('isFocused', true);
+	};
 
 	return {
 		subscribe,

@@ -10,6 +10,7 @@ export type TWindow = {
 	isFullscreen: boolean;
 	isMinimized: boolean;
 	isDragging: boolean;
+	isFocused: boolean;
 } & any;
 
 export type TDesktop = {
