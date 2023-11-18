@@ -22,7 +22,10 @@
 		<button
 			on:mouseenter={() => (isHoveringButton = true)}
 			on:mouseleave={() => (isHoveringButton = false)}
-			on:click={() => win.close()}
+			on:click={() => {
+				win.close();
+				isHoveringButton = false;
+			}}
 			class="rounded-full bg-red-600 p-[2px] aspect-square w-5 flex items-center justify-center"
 		>
 			<X size="16px" strokeWidth="3px" />
@@ -32,6 +35,7 @@
 			on:mouseleave={() => (isHoveringButton = false)}
 			on:click={() => {
 				return;
+				isHoveringButton = false;
 			}}
 			class="rounded-full bg-orange-600 p-[2px] aspect-square w-5 flex items-center justify-center"
 		>
@@ -40,7 +44,10 @@
 		<button
 			on:mouseenter={() => (isHoveringButton = true)}
 			on:mouseleave={() => (isHoveringButton = false)}
-			on:click={() => win.toggleFullscreen()}
+			on:click={() => {
+				win.toggleFullscreen();
+				isHoveringButton = false;
+			}}
 			class="rounded-full bg-green-600 p-[2px] aspect-square w-5 flex items-center justify-center"
 		>
 			{#if $win.isFullscreen}
