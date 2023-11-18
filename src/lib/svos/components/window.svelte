@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { cn } from '$lib/utils';
+	import { cn, flyAndScale } from '$lib/utils';
 	import { onMount } from 'svelte';
 	import type { WindowStore } from '../stores/window';
 	import type { Vector } from '../types';
@@ -41,6 +41,7 @@
 	)}
 	class:hidden={$win.isMinimized}
 	on:mousedown={() => win.focus()}
+	transition:flyAndScale
 >
 	<Titlebar {win} />
 	<slot />
