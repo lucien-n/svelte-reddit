@@ -6,10 +6,16 @@
 
 	let node: HTMLElement;
 
-	win.subscribe(console.log);
+	const handleMouseDown = ({ clientX, clientY }: MouseEvent) =>
+		win.startDragging([clientX, clientY]);
 </script>
 
-<section bind:this={node} class="border-b h-8 flex gap-1 items-center bg-foreground/10 rounded-t">
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<section
+	bind:this={node}
+	on:mousedown={handleMouseDown}
+	class="border-b h-8 flex gap-1 items-center bg-foreground/10 rounded-t"
+>
 	<div class="flex gap-1 m-1">
 		<button
 			on:click={() => win.close()}

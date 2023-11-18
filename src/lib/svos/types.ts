@@ -6,9 +6,10 @@ export type TWindow = {
 	id: string;
 	pos: Vector;
 	size: Vector;
+	title: string;
 	isFullscreen: boolean;
 	isMinimized: boolean;
-	title: string;
+	isDragging: boolean;
 };
 
 export type TDesktop = {

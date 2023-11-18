@@ -23,7 +23,12 @@
 			setSize(size);
 		});
 	});
+
+	const handleMouseUp = () => ($win.isDragging = false);
+	const handleMouseMove = ({ clientX, clientY }: MouseEvent) => win.drag([clientX, clientY]);
 </script>
+
+<svelte:window on:mousemove={handleMouseMove} on:mouseup={handleMouseUp} />
 
 <article id={$win.id} bind:this={node} class="absolute border rounded-md">
 	<Titlebar {win} />

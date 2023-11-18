@@ -25,7 +25,8 @@ const createDesktopStore = (): DesktopStore => {
 			title,
 			size,
 			isFullscreen: false,
-			isMinimized: false
+			isMinimized: false,
+			isDragging: false
 		} satisfies TWindow);
 
 		update(({ windows }) => {

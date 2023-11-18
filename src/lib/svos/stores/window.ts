@@ -7,6 +7,8 @@ import { desktop } from './deskop';
 export type WindowStore = Store<TWindow> & {
 	close: () => void;
 	toggleFullscreen: () => void;
+	startDragging: (pos: Vector) => void;
+	drag: (pos: Vector) => void;
 };
 
 export const createWindowStore = (win: TWindow): WindowStore => {
@@ -14,6 +16,19 @@ export const createWindowStore = (win: TWindow): WindowStore => {
 
 	let lastSize: Vector = win.size;
 	let lastPosition: Vector = win.pos;
+	let dragOffset: Vector = [0, 0];
+
+	const updateField = <K extends keyof TWindow>(field: K, value: TWindow[K]) =>
+		update((win) => {
+			win[field] = value;
+			return win;
+		});
+
+	const getField = <K extends keyof TWindow>(field: K): TWindow[K] => {
+		let value: TWindow[K] | null = null;
+		subscribe((win) => (value = win[field]));
+		return value as any;
+	};
 
 	const close = () => {
 		desktop.update(({ windows }) => {
@@ -41,11 +56,21 @@ export const createWindowStore = (win: TWindow): WindowStore => {
 		});
 	};
 
+	const startDragging = (pos: Vector) => {
+		dragOffset = pos;
+		updateField('isDragging', true);
+	};
+
+	const drag = (pos: Vector) =>
+		getField('isDragging') && updateField('pos', [pos[0] - dragOffset[0], pos[1] - dragOffset[1]]);
+
 	return {
 		subscribe,
 		set,
 		update,
 		close,
-		toggleFullscreen
+		toggleFullscreen,
+		startDragging: startDragging,
+		drag
 	};
 };
