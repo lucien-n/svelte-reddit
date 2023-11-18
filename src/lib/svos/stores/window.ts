@@ -24,10 +24,14 @@ export const createWindowStore = (win: TWindow): WindowStore => {
 
 	const close = () => desktop.closeWindow(getField('id'));
 
-	const toggleFullscreen = () => {
-		const isFullscreen = getField('isFullscreen');
-
-		setField('isFullscreen', !isFullscreen);
+	const toggleFullscreen = (state?: 'on' | 'off' | undefined) => {
+		let isFullscreen = state === 'on';
+		if (state === 'on') setField('isFullscreen', true);
+		if (state === 'off') setField('isFullscreen', false);
+		else {
+			isFullscreen = getField('isFullscreen');
+			setField('isFullscreen', !isFullscreen);
+		}
 
 		if (win.isFullscreen) {
 			lastPosition = getField('pos');
@@ -41,7 +45,7 @@ export const createWindowStore = (win: TWindow): WindowStore => {
 	};
 
 	const startDragging = (pos: Vector) => {
-		setField('isFullscreen', false);
+		toggleFullscreen('off');
 		dragOffset = pos;
 		setField('isDragging', true);
 		focus();
