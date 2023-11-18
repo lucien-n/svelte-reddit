@@ -1,16 +1,17 @@
 <script lang="ts">
 	import { cn } from '$lib/utils';
 	import { Maximize2, Minimize2, Minus, X } from 'lucide-svelte';
+	import { fade } from 'svelte/transition';
 	import type { WindowStore } from '../stores/window';
 
 	export let win: WindowStore;
 
 	let node: HTMLElement;
 
-	let isHoveringButton = false;
+	let isHoveringButton = [false, false, false];
 
 	const handleMouseDown = ({ clientX, clientY }: MouseEvent) =>
-		!isHoveringButton && win.startDragging([clientX, clientY]);
+		!isHoveringButton.every((hovering) => hovering) && win.startDragging([clientX, clientY]);
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
@@ -24,40 +25,54 @@
 >
 	<div class="flex gap-1 m-1">
 		<button
-			on:mouseenter={() => (isHoveringButton = true)}
-			on:mouseleave={() => (isHoveringButton = false)}
+			on:mouseenter={() => (isHoveringButton[0] = true)}
+			on:mouseleave={() => (isHoveringButton[0] = false)}
 			on:click={() => {
 				win.close();
-				isHoveringButton = false;
+				isHoveringButton[0] = false;
 			}}
 			class="rounded-full bg-red-600 p-[2px] aspect-square w-5 flex items-center justify-center"
 		>
-			<X size="16px" strokeWidth="3px" />
+			{#if isHoveringButton[0]}
+				<div transition:fade={{ duration: 100 }}>
+					<X size="16px" strokeWidth="3px" />
+				</div>
+			{/if}
 		</button>
 		<button
-			on:mouseenter={() => (isHoveringButton = true)}
-			on:mouseleave={() => (isHoveringButton = false)}
+			on:mouseenter={() => (isHoveringButton[1] = true)}
+			on:mouseleave={() => (isHoveringButton[1] = false)}
 			on:click={() => {
 				win.hide();
-				isHoveringButton = false;
+				isHoveringButton[1] = false;
 			}}
 			class="rounded-full bg-orange-600 p-[2px] aspect-square w-5 flex items-center justify-center"
 		>
-			<Minus size="16px" strokeWidth="3px" />
+			{#if isHoveringButton[1]}
+				<div transition:fade={{ duration: 100 }}>
+					<Minus size="16px" strokeWidth="3px" />
+				</div>
+			{/if}
 		</button>
 		<button
-			on:mouseenter={() => (isHoveringButton = true)}
-			on:mouseleave={() => (isHoveringButton = false)}
+			on:mouseenter={() => (isHoveringButton[2] = true)}
+			on:mouseleave={() => (isHoveringButton[2] = false)}
 			on:click={() => {
 				win.toggleFullscreen();
-				isHoveringButton = false;
+				isHoveringButton[2] = false;
 			}}
 			class="rounded-full bg-green-600 p-[2px] aspect-square w-5 flex items-center justify-center"
 		>
 			{#if $win.isFullscreen}
-				<Minimize2 size="16px" strokeWidth="3px" />
-			{:else}
-				<Maximize2 size="16px" strokeWidth="3px" />
+				{#if isHoveringButton[2]}
+					<div transition:fade={{ duration: 100 }}>
+						<Minimize2 size="16px" strokeWidth="3px" />
+					</div>
+				{/if}
+			{:else if isHoveringButton[2]}
+				<div transition:fade={{ duration: 100 }}>
+					<Maximize2 size="16px" strokeWidth="3px" />
+				</div>
 			{/if}
 		</button>
 	</div>
