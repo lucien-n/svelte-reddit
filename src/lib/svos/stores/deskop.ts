@@ -53,14 +53,18 @@ const createDesktopStore = (): DesktopStore => {
 	};
 
 	const closeWindow = (windowId: string) => {
+		focusWindow(windowId);
 		update((dt) => {
+			const window = dt.windows.find((win) => {
+				let id;
+				win.subscribe((w) => (id = w.id));
+				return id !== windowId;
+			});
+			if (!window) return dt;
+
 			return {
 				...dt,
-				windows: dt.windows.filter((win) => {
-					let id;
-					win.subscribe((w) => (id = w.id));
-					return id !== windowId;
-				})
+				windows: dt.windows.slice(dt.windows.indexOf(window))
 			};
 		});
 	};

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn, flyAndScale } from '$lib/utils';
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import type { WindowStore } from '../stores/window';
 	import type { Vector } from '../types';
 	import Titlebar from './titlebar.svelte';
@@ -24,6 +24,8 @@
 			setSize(size);
 		});
 	});
+
+	onDestroy(() => console.log('Destroyed', $win.title));
 
 	const handleMouseUp = () => win.stopDragging();
 	const handleMouseMove = ({ clientX, clientY }: MouseEvent) => win.drag([clientX, clientY]);
