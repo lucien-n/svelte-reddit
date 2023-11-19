@@ -10,7 +10,7 @@
 	desktop.createWindow({
 		pos: [10, 10],
 		size: [640, 360],
-		title: 'Window №1',
+		title: 'Settings',
 		icon: { ref: SettingsIcon },
 		component: { ref: Settings }
 	});
