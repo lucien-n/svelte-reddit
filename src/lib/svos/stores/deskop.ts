@@ -21,9 +21,11 @@ const createDesktopStore = (): DesktopStore => {
 	});
 
 	const createWindow = (settings: WindowInitSettings) => {
+		const id = nanoid();
+
 		const win = createWindowStore({
 			...settings,
-			id: nanoid(),
+			id,
 			isFocused: false,
 			isFullscreen: false,
 			isMinimized: false,
@@ -33,6 +35,8 @@ const createDesktopStore = (): DesktopStore => {
 		update((desktop) => {
 			return { ...desktop, windows: [...desktop.windows, win] };
 		});
+
+		focusWindow(id);
 
 		return win;
 	};
@@ -58,10 +62,10 @@ const createDesktopStore = (): DesktopStore => {
 	};
 
 	const focusWindow = (windowId: string) => {
-		subscribe((dt) => {
-			dt.windows.forEach((win) => win.setField('isFocused', false));
-		});
 		setField('focusedWindowId', windowId);
+		getField('windows').forEach((win) =>
+			win.setField('isFocused', win.getField('id') === windowId)
+		);
 	};
 
 	return {

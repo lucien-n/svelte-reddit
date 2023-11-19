@@ -24,11 +24,13 @@
 		pos: [90, 400],
 		size: [720, 480],
 		title: 'Shadcn Svelte',
-		icon: "https://www.shadcn-svelte.com/favicon.ico",
+		icon: 'https://www.shadcn-svelte.com/favicon.ico',
 		component: { ref: ShadcnSvelte }
 	});
 
-	onMount(() => (document.children[0].className = $settings.appearence.theme));
+	onMount(() => {
+		document.children[0].className = $settings.appearence.theme;
+	});
 </script>
 
 <section id="desktop" class="w-full h-full flex bg-background">
