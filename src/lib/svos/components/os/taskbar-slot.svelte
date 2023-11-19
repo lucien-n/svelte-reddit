@@ -1,8 +1,8 @@
 <script lang="ts">
 	import * as ContextMenu from '$lib/components/ui/context-menu';
+	import type { WindowStore } from '$lib/svos/stores/window';
 	import { cn } from '$lib/utils';
 	import { Bird, X } from 'lucide-svelte';
-	import type { WindowStore } from '../stores/window';
 
 	export let win: WindowStore;
 </script>

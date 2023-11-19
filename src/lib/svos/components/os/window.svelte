@@ -1,8 +1,8 @@
 <script lang="ts">
+	import type { WindowStore } from '$lib/svos/stores/window';
+	import type { Vector } from '$lib/svos/types';
 	import { cn, flyAndScale } from '$lib/utils';
 	import { onDestroy, onMount } from 'svelte';
-	import type { WindowStore } from '../stores/window';
-	import type { Vector } from '../types';
 	import Titlebar from './titlebar.svelte';
 
 	export let win: WindowStore;

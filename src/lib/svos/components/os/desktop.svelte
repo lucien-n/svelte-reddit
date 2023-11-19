@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { desktop } from '../stores/deskop';
-	import Taskbar from './taskbar.svelte';
-	import Window from './window.svelte';
+	import Taskbar from '$lib/svos/components/os/taskbar.svelte';
+	import Window from '$lib/svos/components/os/window.svelte';
+	import { desktop } from '$lib/svos/stores/deskop';
 
 	desktop.createWindow({
 		pos: [10, 10],

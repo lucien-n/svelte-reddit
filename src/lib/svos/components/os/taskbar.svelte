@@ -1,6 +1,6 @@
 <script lang="ts">
+	import { desktop } from '$lib/svos/stores/deskop';
 	import { flyAndScale } from '$lib/utils';
-	import { desktop } from '../stores/deskop';
 	import TaskbarSlot from './taskbar-slot.svelte';
 
 	export let autoHide: boolean = false;

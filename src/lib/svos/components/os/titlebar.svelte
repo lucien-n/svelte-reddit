@@ -1,8 +1,8 @@
 <script lang="ts">
+	import type { WindowStore } from '$lib/svos/stores/window';
 	import { cn } from '$lib/utils';
 	import { Maximize2, Minimize2, Minus, X } from 'lucide-svelte';
 	import { fade } from 'svelte/transition';
-	import type { WindowStore } from '../stores/window';
 
 	export let win: WindowStore;
 

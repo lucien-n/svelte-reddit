@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Switch } from '$lib/components/ui/switch';
-	import Desktop from '$lib/svos/components/desktop.svelte';
+	import Desktop from '$lib/svos/components/os/desktop.svelte';
 
 	const toggleTheme = () => {
 		const currentClass = document.children[0].className;
