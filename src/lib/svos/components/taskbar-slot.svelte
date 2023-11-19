@@ -1,6 +1,7 @@
 <script lang="ts">
+	import * as ContextMenu from '$lib/components/ui/context-menu';
 	import { cn } from '$lib/utils';
-	import { Bird } from 'lucide-svelte';
+	import { Bird, X } from 'lucide-svelte';
 	import type { WindowStore } from '../stores/window';
 
 	export let win: WindowStore;
@@ -14,20 +15,30 @@
 		$win.isFocused && 'bg-foreground/30'
 	)}
 >
-	<div class="p-3">
-		{#if $win.icon}
-			<img src={$win.icon} alt={$win.title} />
-		{:else}
-			<Bird size="100%" />
-		{/if}
-	</div>
-	<!-- Bottom bar -->
-	<div class="absolute bottom-0 flex w-full">
-		<div
-			class={cn(
-				'mx-auto group-hover:w-full  ease-in-out duration-200 bg-muted-foreground h-1',
-				$win.isFocused ? 'w-full' : 'w-4/5'
-			)}
-		></div>
-	</div>
+	<ContextMenu.Root>
+		<ContextMenu.Trigger>
+			<div class="p-3">
+				{#if $win.icon}
+					<img src={$win.icon} alt={$win.title} />
+				{:else}
+					<Bird size="100%" />
+				{/if}
+			</div>
+			<!-- Bottom bar -->
+			<div class="absolute bottom-0 flex w-full">
+				<div
+					class={cn(
+						'mx-auto group-hover:w-full  ease-in-out duration-200 bg-muted-foreground h-1',
+						$win.isFocused ? 'w-full' : 'w-4/5'
+					)}
+				></div>
+			</div>
+		</ContextMenu.Trigger>
+		<ContextMenu.Content>
+			<ContextMenu.Item on:click={win.close} class="flex gap-1 items-center">
+				<X size="20px" />
+				<p>Close</p>
+			</ContextMenu.Item>
+		</ContextMenu.Content>
+	</ContextMenu.Root>
 </button>
