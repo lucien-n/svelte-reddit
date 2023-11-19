@@ -3,9 +3,8 @@
 	import { flyAndScale } from '$lib/utils';
 	import TaskbarSlot from './taskbar-slot.svelte';
 
-	export let autoHide: boolean = false;
-
 	let isHovering = false;
+	$: autoHide = $desktop.settings.taskbar.autoHide;
 
 	const handleMouseEnter = () => {
 		if (!autoHide) return;

@@ -17,7 +17,10 @@ export type DesktopStore = Store<TDesktop> & {
 const createDesktopStore = (): DesktopStore => {
 	const { subscribe, set, update, getField, setField } = writable<TDesktop>({
 		windows: [],
-		focusedWindowId: ''
+		focusedWindowId: '',
+		settings: {
+			taskbar: { autoHide: false }
+		}
 	});
 
 	const createWindow = (settings: WindowInitSettings) => {

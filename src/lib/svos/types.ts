@@ -1,4 +1,3 @@
-import type { SvelteComponent } from 'svelte';
 import type { WindowStore } from './stores/window';
 
 export type Vector = [number, number];
@@ -29,4 +28,11 @@ export type TWindow = {
 export type TDesktop = {
 	windows: WindowStore[];
 	focusedWindowId: string;
+	settings: Settings;
+};
+
+type Settings = {
+	taskbar: {
+		autoHide: boolean;
+	};
 };
