@@ -22,7 +22,7 @@
 </script>
 
 <section id="desktop" class="w-full h-full flex bg-background">
-	{#each $desktop.windows as win}
+	{#each $desktop.windows as win (win.getField('id'))}
 		<Window {win} />
 	{/each}
 	<Taskbar />
