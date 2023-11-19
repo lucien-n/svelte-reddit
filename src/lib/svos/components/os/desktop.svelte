@@ -3,7 +3,7 @@
 	import Window from '$lib/svos/components/os/window.svelte';
 	import { desktop } from '$lib/svos/stores/deskop';
 	import { settings } from '$lib/svos/stores/settings';
-	import { Component, SettingsIcon } from 'lucide-svelte';
+	import { SettingsIcon } from 'lucide-svelte';
 	import { onMount } from 'svelte';
 	import Settings from '../applications/settings.svelte';
 	import ShadcnSvelte from '../applications/shadcn-svelte.svelte';
@@ -24,7 +24,7 @@
 		pos: [90, 400],
 		size: [720, 480],
 		title: 'Shadcn Svelte',
-		icon: { ref: Component },
+		icon: "https://www.shadcn-svelte.com/favicon.ico",
 		component: { ref: ShadcnSvelte }
 	});
 

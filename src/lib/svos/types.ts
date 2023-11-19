@@ -17,7 +17,7 @@ export type TWindow = {
 	pos: Vector;
 	size: Vector;
 	title: string;
-	icon?: IconComponent;
+	icon?: IconComponent | string;
 	component?: ApplicationComponent;
 	isFullscreen: boolean;
 	isMinimized: boolean;
