@@ -3,9 +3,10 @@
 	import Window from '$lib/svos/components/os/window.svelte';
 	import { desktop } from '$lib/svos/stores/deskop';
 	import { settings } from '$lib/svos/stores/settings';
-	import { SettingsIcon } from 'lucide-svelte';
+	import { Component, SettingsIcon } from 'lucide-svelte';
 	import { onMount } from 'svelte';
 	import Settings from '../applications/settings.svelte';
+	import ShadcnSvelte from '../applications/shadcn-svelte.svelte';
 
 	desktop.createWindow({
 		pos: [10, 10],
@@ -22,7 +23,9 @@
 	desktop.createWindow({
 		pos: [90, 400],
 		size: [720, 480],
-		title: 'Window №3'
+		title: 'Shadcn Svelte',
+		icon: { ref: Component },
+		component: { ref: ShadcnSvelte }
 	});
 
 	onMount(() => (document.children[0].className = $settings.appearence.theme));
