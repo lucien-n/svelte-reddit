@@ -2,7 +2,7 @@
 	import type { WindowStore } from '$lib/svos/stores/window';
 	import type { Vector } from '$lib/svos/types';
 	import { cn, flyAndScale } from '$lib/utils';
-	import { onDestroy, onMount } from 'svelte';
+	import { onMount } from 'svelte';
 	import Titlebar from './titlebar.svelte';
 
 	export let win: WindowStore;
@@ -24,8 +24,6 @@
 			setSize(size);
 		});
 	});
-
-	onDestroy(() => console.log('Destroyed', $win.title));
 
 	const handleMouseUp = () => win.stopDragging();
 	const handleMouseMove = ({ clientX, clientY }: MouseEvent) => win.drag([clientX, clientY]);
