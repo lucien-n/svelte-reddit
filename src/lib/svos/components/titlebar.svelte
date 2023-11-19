@@ -12,12 +12,15 @@
 
 	const handleMouseDown = ({ clientX, clientY }: MouseEvent) =>
 		!isHoveringButton.every((hovering) => hovering) && win.startDragging([clientX, clientY]);
+
+	const handleDoubleClick = () => win.toggleFullscreen();
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <section
 	bind:this={node}
 	on:mousedown={handleMouseDown}
+	on:dblclick={handleDoubleClick}
 	class={cn(
 		'border-b h-8 flex gap-1 px-1 items-center rounded-t bg-foreground/10',
 		!$win.isFocused && 'text-foreground/60'
