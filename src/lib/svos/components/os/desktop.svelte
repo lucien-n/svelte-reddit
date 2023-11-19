@@ -2,12 +2,14 @@
 	import Taskbar from '$lib/svos/components/os/taskbar.svelte';
 	import Window from '$lib/svos/components/os/window.svelte';
 	import { desktop } from '$lib/svos/stores/deskop';
+	import Settings from '../applications/settings.svelte';
 
 	desktop.createWindow({
 		pos: [10, 10],
 		size: [640, 360],
 		title: 'Window №1',
-		icon: 'https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png'
+		icon: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.pinclipart.com%2Fpicdir%2Fbig%2F80-800546_this-icon-represents-settings-settings-icon-transparent-clipart.png&f=1&nofb=1&ipt=50c462e63faf3054569b203485a0526f674f3b4e9c247d9fc7191828769bda62&ipo=images',
+		component: { ref: Settings }
 	});
 	desktop.createWindow({
 		pos: [800, 40],

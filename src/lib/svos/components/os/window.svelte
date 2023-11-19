@@ -7,6 +7,7 @@
 
 	export let win: WindowStore;
 	let node: HTMLElement;
+	let content: HTMLElement;
 
 	const setPosition = (pos: Vector) => {
 		node.style.left = `${pos[0]}px`;
@@ -16,6 +17,7 @@
 	const setSize = (size: Vector) => {
 		node.style.width = `${size[0]}px`;
 		node.style.height = `${size[1]}px`;
+		content.style.height = `${size[1] - 32}px`;
 	};
 
 	onMount(() => {
@@ -44,5 +46,14 @@
 	transition:flyAndScale
 >
 	<Titlebar {win} />
-	<slot />
+	<div bind:this={content}>
+		{#if win.getField('component')}
+			{@const component = win.getField('component')}
+			<svelte:component this={component?.ref} {...component?.props} parent={node}>
+				{@html component?.slot}
+			</svelte:component>
+		{:else}
+			<slot />
+		{/if}
+	</div>
 </article>
