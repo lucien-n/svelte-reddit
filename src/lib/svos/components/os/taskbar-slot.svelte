@@ -19,7 +19,11 @@
 		<ContextMenu.Trigger>
 			<div class="p-3">
 				{#if $win.icon}
-					<img src={$win.icon} alt={$win.title} />
+					{#if typeof $win.icon === 'string'}
+						<img src={$win.icon} alt={$win.title} />
+					{:else}
+						<svelte:component this={$win.icon.ref} size="38px" />
+					{/if}
 				{:else}
 					<Bird size="100%" />
 				{/if}

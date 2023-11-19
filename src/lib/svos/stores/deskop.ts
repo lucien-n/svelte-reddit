@@ -5,9 +5,7 @@ import type { TDesktop, TWindow } from '../types';
 import { writable } from './svos-store';
 import { createWindowStore, type WindowStore } from './window';
 
-export type WindowInitSettings = Pick<TWindow, 'pos' | 'size' | 'title' | 'icon' | 'component'> & {
-	icon?: string | undefined;
-};
+export type WindowInitSettings = Pick<TWindow, 'pos' | 'size' | 'title' | 'icon' | 'component'>;
 
 export type DesktopStore = Store<TDesktop> & {
 	createWindow: (settings: WindowInitSettings) => WindowStore;

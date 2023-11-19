@@ -1,24 +1,29 @@
+import type { SvelteComponent } from 'svelte';
 import type { WindowStore } from './stores/window';
 
 export type Vector = [number, number];
 
-export type ApplicationComponent = {
+type Component = {
 	ref: any;
 	props?: Record<string, unknown>;
 	slot?: string;
 };
+
+export type ApplicationComponent = Component;
+
+export type IconComponent = Component;
 
 export type TWindow = {
 	id: string;
 	pos: Vector;
 	size: Vector;
 	title: string;
-	icon?: string;
+	icon?: IconComponent;
+	component?: ApplicationComponent;
 	isFullscreen: boolean;
 	isMinimized: boolean;
 	isDragging: boolean;
 	isFocused: boolean;
-	component?: ApplicationComponent;
 };
 
 export type TDesktop = {
