@@ -14,7 +14,7 @@
 
 	settings.subscribe(
 		({ appearence: { theme } }) =>
-			(currentTheme = themeChoices.find(({ value }) => value === theme)?.label ?? 'light')
+			(currentTheme = themeChoices.find(({ value }) => value === theme)?.label ?? 'Light')
 	);
 </script>
 

@@ -2,7 +2,9 @@
 	import Taskbar from '$lib/svos/components/os/taskbar.svelte';
 	import Window from '$lib/svos/components/os/window.svelte';
 	import { desktop } from '$lib/svos/stores/deskop';
+	import { settings } from '$lib/svos/stores/settings';
 	import { SettingsIcon } from 'lucide-svelte';
+	import { onMount } from 'svelte';
 	import Settings from '../applications/settings.svelte';
 
 	desktop.createWindow({
@@ -22,6 +24,8 @@
 		size: [720, 480],
 		title: 'Window №3'
 	});
+
+	onMount(() => (document.children[0].className = $settings.appearence.theme));
 </script>
 
 <section id="desktop" class="w-full h-full flex bg-background">

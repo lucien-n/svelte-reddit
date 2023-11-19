@@ -13,7 +13,7 @@ const createSettingsStore = () => {
 		update((curr) => {
 			return { ...curr, appearence: { theme } };
 		});
-		document.children[0].className = theme;
+		document.children[0].className = theme || 'light';
 	};
 
 	return {
