@@ -45,7 +45,6 @@ export const createWindowStore = (win: TWindow): WindowStore => {
 	};
 
 	const startDragging = (pos: Vector) => {
-		toggleFullscreen('off');
 		dragOffset = pos;
 		setField('isDragging', true);
 		focus();
@@ -54,9 +53,11 @@ export const createWindowStore = (win: TWindow): WindowStore => {
 	const stopDragging = () =>
 		getField('isDragging') && (lastPosition = getField('pos')) && setField('isDragging', false);
 
-	const drag = (pos: Vector) =>
-		getField('isDragging') &&
+	const drag = (pos: Vector) => {
+		if (!getField('isDragging')) return;
+		toggleFullscreen('off');
 		setField('pos', vector.add(lastPosition, vector.substract(pos, dragOffset)));
+	};
 
 	const show = () => setField('isMinimized', false);
 	const hide = () => setField('isMinimized', true);
