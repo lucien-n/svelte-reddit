@@ -1,4 +1,4 @@
-import type { Store } from '$lib/types';
+import type { Writable } from '$lib/types';
 import { nanoid } from 'nanoid';
 import { filterOutWindow } from '../helper';
 import type { TDesktop, TWindow } from '../types';
@@ -7,7 +7,7 @@ import { createWindowStore, type WindowStore } from './window';
 
 export type WindowInitSettings = Pick<TWindow, 'pos' | 'size' | 'title' | 'icon' | 'component'>;
 
-export type DesktopStore = Store<TDesktop> & {
+export type DesktopStore = Writable<TDesktop> & {
 	createWindow: (settings: WindowInitSettings) => WindowStore;
 	getWindow: (windowId: string) => WindowStore | undefined;
 	closeWindow: (windowId: string) => void;
@@ -17,10 +17,7 @@ export type DesktopStore = Store<TDesktop> & {
 const createDesktopStore = (): DesktopStore => {
 	const { subscribe, set, update, getField, setField } = writable<TDesktop>({
 		windows: [],
-		focusedWindowId: '',
-		settings: {
-			taskbar: { autoHide: false }
-		}
+		focusedWindowId: ''
 	});
 
 	const createWindow = (settings: WindowInitSettings) => {

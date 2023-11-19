@@ -1,6 +1,6 @@
 import type { Invalidator, Subscriber, Unsubscriber, Updater } from 'svelte/store';
 
-export type Store<T> = {
+export type Writable<T> = {
 	subscribe: (
 		this: void,
 		run: Subscriber<T>,

@@ -28,11 +28,15 @@ export type TWindow = {
 export type TDesktop = {
 	windows: WindowStore[];
 	focusedWindowId: string;
-	settings: Settings;
 };
 
-type Settings = {
+export type Settings = {
 	taskbar: {
 		autoHide: boolean;
 	};
+	appearence: {
+		theme: Theme;
+	};
 };
+
+export type Theme = 'system' | 'light' | 'dark';

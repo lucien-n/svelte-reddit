@@ -1,10 +1,11 @@
 <script lang="ts">
 	import { desktop } from '$lib/svos/stores/deskop';
+	import { settings } from '$lib/svos/stores/settings';
 	import { flyAndScale } from '$lib/utils';
 	import TaskbarSlot from './taskbar-slot.svelte';
 
 	let isHovering = false;
-	$: autoHide = $desktop.settings.taskbar.autoHide;
+	$: autoHide = $settings.taskbar.autoHide;
 
 	const handleMouseEnter = () => {
 		if (!autoHide) return;

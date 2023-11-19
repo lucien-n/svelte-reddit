@@ -1,10 +1,10 @@
-import type { Store } from '$lib/types';
+import type { Writable } from '$lib/types';
 import { vector } from '../helper';
 import type { TWindow, Vector } from '../types';
 import { desktop } from './deskop';
 import { writable } from './svos-store';
 
-export type WindowStore = Store<TWindow> & {
+export type WindowStore = Writable<TWindow> & {
 	close: () => void;
 	toggleFullscreen: () => void;
 	startDragging: (pos: Vector) => void;
